@@ -33,6 +33,16 @@ class UsersController < ApplicationController
         end
     end
 
+    def destroy
+        user = User.find_by(id: params[:id])
+        if user 
+            User.find_by(id: params[:id]).destroy
+            render json: { message: "DELETE WITH SUCCESS" }, status: 200
+        else 
+            render json: { error: "Cannot Find user to Delete" }, status: 400
+        end
+    end
+
     private
         def user_params
             params.require(:user).permit([
